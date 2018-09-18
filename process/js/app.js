@@ -10,7 +10,9 @@ var MainInterface = React.createClass({
 
   getInitialState : function () {
     return {
-      apts : []
+      apts : [],
+      aptBodyVisble : false,
+
     }
   },
 
@@ -18,7 +20,7 @@ var MainInterface = React.createClass({
     this.serverRequest = $.get('./js/data.json', function (result) {
       var temApts = result;
       this.setState({
-        apts : temApts
+        apts : temApts,
       });
     }.bind(this));
   },
@@ -32,6 +34,12 @@ var MainInterface = React.createClass({
     var newApts = _.without(allApts, item);
     this.setState({
       apts : newApts
+    });
+  },
+
+  toogleAddDisplay : function () {
+    this.setState({
+      aptBodyVisble : !this.state.aptBodyVisble,
     });
   },
 
@@ -49,7 +57,8 @@ var MainInterface = React.createClass({
 
     return (
       <div className = "interface">
-          <AddAppointment />
+          <AddAppointment bodyVisible = {this.state.aptBodyVisble}
+          handleToogle = {this.toogleAddDisplay}/>
           <ul className = "item-list media-list">
             {filteredApts}
           </ul>
