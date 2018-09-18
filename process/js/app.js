@@ -1,5 +1,6 @@
 var React = require ('react');
 var ReactDOM = require ('react-dom');
+var _ = require('lodash');
 
 var AptList = require ('./AptList')
 
@@ -25,11 +26,23 @@ var MainInterface = React.createClass({
     this.serverRequest.abort();
   },
 
+  deleteMessage : function(item) {
+    var allApts = this.state.apts;
+    var newApts = _.without(allApts, item);
+    this.setState({
+      apts : newApts
+    });
+  },
+
   render: function () {
     var filteredApts = this.state.apts;
     filteredApts = filteredApts.map(function(item, index){
       return (
-        <AptList key = {index} singleItem = {item}/>
+        <AptList
+          key = {index}
+          singleItem = {item}
+          wichItem = {item}
+          OnDelete = {this.deleteMessage}/>
       ) // return
     }.bind(this)); // filteredApts.map
 

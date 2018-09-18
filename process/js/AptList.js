@@ -1,9 +1,19 @@
 var React = require('react');
 
 var AptList = React.createClass({
+
+  handleDelete : function() {
+    this.props.OnDelete(this.props.wichItem)
+  },
+  
   render : function () {
     return (
       <li className = "pet-info media" >
+        <div className = "media-left">
+          <button className= "pet-delete btn btn-xs btn-danger" onClick={this.handleDelete}>
+            <span className= "glyphicon glyphicon-remove"></span>
+          </button>
+        </div>
         <div className = "pet-info media-body">
             <div className = "pet-head">
               <span className = "pet-name">{this.props.singleItem.petName}</span>
