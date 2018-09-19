@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 var AptList = require ('./AptList');
 var AddAppointment = require('./AddAppointment');
+var SearchAppointments = require('./SearchAppointments');
 
 
 var MainInterface = React.createClass({
@@ -11,6 +12,8 @@ var MainInterface = React.createClass({
   getInitialState : function () {
     return {
       apts : [],
+      orderBy : 'petName',
+      orderDir: 'asc',
       aptBodyVisble : false,
 
     }
@@ -54,6 +57,13 @@ var MainInterface = React.createClass({
 
   render: function () {
     var filteredApts = this.state.apts;
+    var orderBy = this.state.orderBy;
+    var orderDir = this.state.orderDir;
+
+    filteredApts = _.orderBy(filteredApts,function (item) {
+      return item[orderBy].toLowerCase();
+    }, orderDir);//orderBy
+
     filteredApts = filteredApts.map(function(item, index){
       return (
         <AptList
@@ -70,6 +80,9 @@ var MainInterface = React.createClass({
           bodyVisible = {this.state.aptBodyVisble}
           handleToogle = {this.toogleAddDisplay}
           addApt = {this.addItem}
+          />
+          <SearchAppointments orderBy = {this.state.orderBy}
+          orderDir = {this.state.orderDir}
           />
           <ul className = "item-list media-list">
             {filteredApts}
