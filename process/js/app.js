@@ -38,8 +38,9 @@ var MainInterface = React.createClass({
   },
 
   toogleAddDisplay : function () {
+    var tempVisibility = !this.state.aptBodyVisble;
     this.setState({
-      aptBodyVisble : !this.state.aptBodyVisble,
+      aptBodyVisble : tempVisibility,
     });
   },
 
