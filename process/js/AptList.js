@@ -5,7 +5,7 @@ var AptList = React.createClass({
   handleDelete : function() {
     this.props.OnDelete(this.props.wichItem)
   },
-  
+
   render : function () {
     return (
       <li className = "pet-info media" >
@@ -21,7 +21,7 @@ var AptList = React.createClass({
             </div>
             <div className = "owner-name">
               <span className = "label-item">Owner :</span>
-              {this.props.singleItem.ownerNames}
+              {this.props.singleItem.ownerName}
             </div>
             <div className = "apt-notes">
               {this.props.singleItem.aptNotes}

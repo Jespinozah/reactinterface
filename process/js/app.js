@@ -54,6 +54,12 @@ var MainInterface = React.createClass({
       apts : tempApts,
     });
   },
+   reOrder : function(orderBy, orderDir) {
+     this.setState({
+       orderBy : orderBy,
+       orderDir : orderDir
+     });
+   },
 
   render: function () {
     var filteredApts = this.state.apts;
@@ -81,8 +87,10 @@ var MainInterface = React.createClass({
           handleToogle = {this.toogleAddDisplay}
           addApt = {this.addItem}
           />
-          <SearchAppointments orderBy = {this.state.orderBy}
+          <SearchAppointments
+          orderBy = {this.state.orderBy}
           orderDir = {this.state.orderDir}
+          onReOrder = {this.reOrder}
           />
           <ul className = "item-list media-list">
             {filteredApts}
