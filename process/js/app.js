@@ -15,6 +15,7 @@ var MainInterface = React.createClass({
       orderBy : 'petName',
       orderDir: 'asc',
       aptBodyVisble : false,
+      queryText: '',
 
     }
   },
@@ -61,10 +62,31 @@ var MainInterface = React.createClass({
      });
    },
 
+   searchApts : function(p) {
+     this.setState({
+       queryText : p,
+     });
+   },
+
   render: function () {
-    var filteredApts = this.state.apts;
+    var filteredApts = [];
     var orderBy = this.state.orderBy;
     var orderDir = this.state.orderDir;
+    var queryText = this.state.queryText
+
+
+    myApts = this.state.apts;
+
+    myApts.forEach (function (item){
+      if(
+        (item.petName.toLowerCase().indexOf(queryText)!=-1) ||
+        (item.ownerName.toLowerCase().indexOf(queryText)!=-1) ||
+        (item.aptDate.toLowerCase().indexOf(queryText)!=-1) ||
+        (item.aptNotes.toLowerCase().indexOf(queryText)!=-1)
+      ) {
+        filteredApts.push(item);
+      }
+    });
 
     filteredApts = _.orderBy(filteredApts,function (item) {
       return item[orderBy].toLowerCase();
@@ -91,6 +113,7 @@ var MainInterface = React.createClass({
           orderBy = {this.state.orderBy}
           orderDir = {this.state.orderDir}
           onReOrder = {this.reOrder}
+          onSearch = {this.searchApts}
           />
           <ul className = "item-list media-list">
             {filteredApts}
