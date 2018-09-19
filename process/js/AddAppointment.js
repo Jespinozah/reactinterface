@@ -6,6 +6,17 @@ var AddAppointment = React.createClass({
     this.props.handleToogle();
   },
 
+  handleAdd : function (e) {
+    var tempItem = {
+      petName : this.refs.inputPetName.value,
+      ownerName : this.refs.inputOwnerName.value,
+      aptDate : this.refs.inputAptDate.value + ' ' + this.refs.inputAptTime.value,
+      aptNotes : this.refs.inputAptNotes.value,
+    }
+    e.preventDefault();
+    this.props.addApt(tempItem);
+  },
+
   render : function () {
 
     var displayAptBody = {
@@ -17,7 +28,7 @@ var AddAppointment = React.createClass({
         <div className="panel-heading apt-addheading" onClick = {this.toogleAptDisplay} >
         <span className="glyphicon glyphicon-plus"></span> Add Appointment</div>
         <div className="panel-body " style ={displayAptBody}>
-          <form className="add-appointment form-horizontal">
+          <form className="add-appointment form-horizontal" onSubmit  = {this.handleAdd}>
             <div className="form-group">
               <label className="col-sm-2 control-label" htmlFor="petName">Pet Name</label>
               <div className="col-sm-10">

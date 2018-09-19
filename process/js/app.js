@@ -44,6 +44,14 @@ var MainInterface = React.createClass({
     });
   },
 
+  addItem : function(tempItem) {
+    var tempApts = this.state.apts;
+    tempApts.push(tempItem);
+    this.setState({
+      apts : tempApts,
+    });
+  },
+
   render: function () {
     var filteredApts = this.state.apts;
     filteredApts = filteredApts.map(function(item, index){
@@ -58,8 +66,11 @@ var MainInterface = React.createClass({
 
     return (
       <div className = "interface">
-          <AddAppointment bodyVisible = {this.state.aptBodyVisble}
-          handleToogle = {this.toogleAddDisplay}/>
+          <AddAppointment
+          bodyVisible = {this.state.aptBodyVisble}
+          handleToogle = {this.toogleAddDisplay}
+          addApt = {this.addItem}
+          />
           <ul className = "item-list media-list">
             {filteredApts}
           </ul>
